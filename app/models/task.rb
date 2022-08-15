@@ -1,9 +1,10 @@
 class Task < ApplicationRecord
-    belongs_to :user
+  belongs_to :user
 
-    ALL_STATES = %w[created doing done canceled].freeze
+  validates :title, presence: true, length: { maximum: 50 }
+  validates :deadline, allow_blank: true, comparison: { greater_than: Date.today }
 
-    enum status: ALL_STATES.zip(ALL_STATES).to_h
-  
+  ALL_STATES = %w[created doing done canceled].freeze
 
+  enum status: ALL_STATES.zip(ALL_STATES).to_h
 end
